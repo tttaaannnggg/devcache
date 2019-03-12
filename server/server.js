@@ -16,9 +16,16 @@ const snippetController = require('./snippetController.js');
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use('/', express.static(path.join(__dirname, '../build')));
- 
+
 // GET Endpoints
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve('./index.html'));
+});
+
+app.get('/build/bundle.js', (req, res) => {
+  res.sendFile(path.resolve('./build/bundle.js'));
+});
 
 app.get('/gettags', snippetController.getAllUserTags);
 
