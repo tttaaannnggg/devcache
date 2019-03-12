@@ -17,11 +17,11 @@ snippetController.createSnippet = (req, res, next) => {
   };
 
   pool.query(snippetQuery)
-  .then(result=> {
-    res.locals.snippet_id = result.rows[0].id
-    next();
-  })
-  .catch(err => console.log(err.stack));
+    .then(result => {
+      res.locals.snippet_id = result.rows[0].id
+      next();
+    })
+    .catch(err => console.log(err.stack));
 };
 
 snippetController.createTags = (req, res) => {
@@ -40,11 +40,11 @@ snippetController.createTags = (req, res) => {
   });
 
   Promise.all(promises)
-  .then(values => {
-    values.forEach(tagQuery => pool.query(tagQuery));
-    res.status(201).send('Tags added.');
-  })
-  .catch(err => console.log(err.message));
+    .then(values => {
+      values.forEach(tagQuery => pool.query(tagQuery));
+      res.status(201).send('Tags added.');
+    })
+    .catch(err => console.log(err.message));
 }
 
 snippetController.getAllUserTags = (req, res) => {
@@ -56,11 +56,11 @@ snippetController.getAllUserTags = (req, res) => {
   };
 
   pool.query(query)
-  .then(result => {
-    const tags = [];
-    result.rows.forEach(obj => tags.push(obj.tag));
-    res.json(tags);
-  });
+    .then(result => {
+      const tags = [];
+      result.rows.forEach(obj => tags.push(obj.tag));
+      res.json(tags);
+    });
 };
 
 snippetController.getSnippetIdsByTag = (req, res, next) => {
@@ -72,13 +72,13 @@ snippetController.getSnippetIdsByTag = (req, res, next) => {
   };
 
   pool.query(IdQuery)
-  .then(result => {
-    const resultArr = [];
-    result.rows.forEach(row => resultArr.push(row.snippet_id));
-    res.locals.snippets = resultArr;
-    next();
-  })
-  .catch(err => console.error(err.stack));
+    .then(result => {
+      const resultArr = [];
+      result.rows.forEach(row => resultArr.push(row.snippet_id));
+      res.locals.snippets = resultArr;
+      next();
+    })
+    .catch(err => console.error(err.stack));
 };
 
 snippetController.getSnippetsBySnippetIds = (req, res) => {
@@ -86,9 +86,9 @@ snippetController.getSnippetsBySnippetIds = (req, res) => {
   const userId = req.cookies.user_id;
   const promises = [];
 
-  snippetIds.forEach(id =>{
+  snippetIds.forEach(id => {
     const query = {
-      name: 'getSnippetsBySnippetId', 
+      name: 'getSnippetsBySnippetId',
       text: 'SELECT * FROM snippets WHERE snippets.id = $1 AND snippets.user_id = $2;',
       values: [id, userId]
     };
@@ -97,20 +97,20 @@ snippetController.getSnippetsBySnippetIds = (req, res) => {
   });
 
   Promise.all(promises)
-  .then(snippetQuery => {
-    const resultsArr = [];
-    snippetQuery.forEach((x, y) => {
-      if (y < 2) resultsArr.push(pool.query(x));
-    });
+    .then(snippetQuery => {
+      const resultsArr = [];
+      snippetQuery.forEach((x, y) => {
+        if (y < 2) resultsArr.push(pool.query(x));
+      });
 
-    Promise.all(resultsArr)
-    .then(snippets => {
-      let arr = []; 
-      snippets.forEach(obj => arr.push(obj.rows));
-      res.json(arr);
-    }) 
-    .catch(err => console.error(err.stack));
-  });
+      Promise.all(resultsArr)
+        .then(snippets => {
+          let arr = [];
+          snippets.forEach(obj => arr.push(obj.rows));
+          res.json(arr);
+        })
+        .catch(err => console.error(err.stack));
+    });
 };
 
 snippetController.deleteSnippet = (req, res) => {
@@ -122,9 +122,9 @@ snippetController.deleteSnippet = (req, res) => {
   };
 
   pool.query(deleteQuery)
-  .then(data => {
-    res.status(200).send('Snippet deleted.')
-  });
+    .then(data => {
+      res.status(200).send('Snippet deleted.')
+    });
 };
 
 module.exports = snippetController;

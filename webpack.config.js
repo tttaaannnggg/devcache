@@ -26,7 +26,7 @@ module.exports = {
         exclude: [path.resolve(__dirname, 'node_modules')],
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader'}
+          { loader: 'css-loader' }
         ]
       }
     ]
@@ -43,11 +43,4 @@ module.exports = {
     port: 8080,
     hot: true
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'devCache',
-      template: './client/index.html'
-    })
-  ],
 };
