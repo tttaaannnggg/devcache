@@ -64,7 +64,6 @@ snippetController.getAllUserTags = (req, res) => {
 
 snippetController.getSnippetIdsByTag = (req, res, next) => {
   const tag = req.query.tag;
-  // console.log('tag is', tag);
   const IdQuery = {
     name: 'getSnippetIdsByTag',
     text: 'SELECT snippet_id FROM tags WHERE tags.tag = $1;',
@@ -77,7 +76,6 @@ snippetController.getSnippetIdsByTag = (req, res, next) => {
       result.rows.forEach(row => resultArr.push(row.snippet_id));
       res.locals.snippets = resultArr;
       // it's an array and it looks good
-      // console.log(res.locals.snippets);
       next();
     })
     .catch(err => console.error(err.stack));
