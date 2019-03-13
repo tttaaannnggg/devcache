@@ -9,7 +9,6 @@ const snippetController = {};
 snippetController.createSnippet = (req, res, next) => {
   const { snippet, comments, project } = req.body;
   const user_id = req.cookies.user_id;
-  // console.log('createSnippppppppet user id', user_id)
   const date = new Date();
   const snippetQuery = {
     name: 'create-snippet',
