@@ -27,6 +27,14 @@ app.get('/build/bundle.js', (req, res) => {
   res.sendFile(path.resolve('./build/bundle.js'));
 });
 
+app.get('/api/user', controller.getAccountInfo, snippetController.getSnippetsByUserId, (req, res) => {
+  const userDataWithSnippets = {
+    userInfo: res.locals.userInfo,
+    snippets: res.locals.snippets
+  };
+  res.json(userDataWithSnippets);
+});
+
 app.get('/gettags', snippetController.getAllUserTags);
 
 app.get('/getsnippetsbytag', snippetController.getSnippetIdsByTag, snippetController.getSnippetsBySnippetIds);
@@ -34,8 +42,6 @@ app.get('/getsnippetsbytag', snippetController.getSnippetIdsByTag, snippetContro
 app.get('/deletesnippetbyid', snippetController.deleteSnippet);
 
 // POST Endpoints
-// (req, res, next) => {
-// return console.log('req.body before verifyUser is'
 
 app.post('/login', controller.verifyUser, sessionController.setCookie, sessionController.startSession);
 
