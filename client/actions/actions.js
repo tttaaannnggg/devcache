@@ -122,7 +122,7 @@ export const getSnippetsByTag = (tag) => dispatch => {
 }
 
 export const getSnippetsByUser = (username) => dispatch => {
-  return fetch(`http://localhost:3000/getsnippetsbytag/?username=${username}`, {
+  return fetch(`http://localhost:3000/getsnippetsbyuser/?username=${username}`, {
       headers: { "Content-Type": "application/json" },
       credentials: 'include',
       method: 'GET'
