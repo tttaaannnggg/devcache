@@ -14,12 +14,13 @@ controller.verifyUser = (req, res, next) => {
   const { username, password } = req.body;
   const query = {
     name: 'verify-user',
-    text: 'SELECT * FROM account WHERE username = $1;',
+    text: `SELECT * FROM accounts WHERE username = $1`,
     values: [username]
   };
-
+  
   pool.query(query)
     .then(result => {
+
       const hash = result.rows[0].password;
 
       bcrypt.compare(password, hash, function (err, judgement) {
@@ -39,7 +40,6 @@ controller.verifyUser = (req, res, next) => {
 
 controller.createUser = (req, res, next) => {
   const { fullname, username, email, password } = req.body;
-  console.log('req.body inside Create User', req.body);
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     const query = {

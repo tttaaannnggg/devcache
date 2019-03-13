@@ -28,7 +28,6 @@ snippetController.createTags = (req, res) => {
   const promises = [];
   const snippet_id = res.locals.snippet_id;
   const tags = req.body.tags.split(", ");
-
   tags.forEach(tag => {
     const tagQuery = {
       name: 'create-tags',
@@ -76,6 +75,7 @@ snippetController.getSnippetIdsByTag = (req, res, next) => {
       const resultArr = [];
       result.rows.forEach(row => resultArr.push(row.snippet_id));
       res.locals.snippets = resultArr;
+      // it's an array and it looks good
       next();
     })
     .catch(err => console.error(err.stack));
@@ -99,6 +99,7 @@ snippetController.getSnippetsBySnippetIds = (req, res) => {
   Promise.all(promises)
     .then(snippetQuery => {
       const resultsArr = [];
+
       snippetQuery.forEach((x, y) => {
         if (y < 2) resultsArr.push(pool.query(x));
       });
@@ -106,7 +107,7 @@ snippetController.getSnippetsBySnippetIds = (req, res) => {
       Promise.all(resultsArr)
         .then(snippets => {
           let arr = [];
-          snippets.forEach(obj => arr.push(obj.rows));
+          snippets.forEach(obj => arr = arr.concat(obj.rows));
           res.json(arr);
         })
         .catch(err => console.error(err.stack));
