@@ -42,7 +42,6 @@ controller.verifyUser = (req, res, next) => {
         if (judgement) {
           const session_id = uuid();
           res.locals.session_id = session_id;
-          console.log('user match in db', result.rows);
           res.locals.user_id = result.rows[0].user_id;
           next();
         } else {
@@ -55,8 +54,6 @@ controller.verifyUser = (req, res, next) => {
 
 controller.createUser = (req, res, next) => {
   const { fullname, username, email, password } = req.body;
-  console.log('req.body inside Create User', req.body);
-
   bcrypt.hash(password, saltRounds, (err, hash) => {
     const query = {
       name: 'create-user',
