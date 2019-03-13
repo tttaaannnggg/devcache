@@ -81,6 +81,22 @@ snippetController.getSnippetIdsByTag = (req, res, next) => {
     .catch(err => console.error(err.stack));
 };
 
+snippetController.getSnippetsByUserId = (req, res, next) => {
+  const uid = res.locals.userInfo.user_id;
+  const query = {
+    name: 'get-snippets-by-user-id',
+    text: 'SELECT * from snippets where user_id = $1',
+    values: [uid]
+  };
+
+  pool.query(query)
+    .then(result => {
+      res.locals.snippets = result.rows;
+      next();
+    })
+
+}
+
 snippetController.getSnippetsBySnippetIds = (req, res) => {
   const snippetIds = res.locals.snippets;
   const userId = req.cookies.user_id;
