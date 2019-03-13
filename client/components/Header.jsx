@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Navbar, Form, Dropdown, FormControl, Button, Nav } from 'react-bootstrap';
 
 const Header = props => {
-  const assets = '/clients';
+  const assets = '/client/assets/';
   const myPic = assets + 'myPic.jpg';
   return (
     <Navbar className="nav" expand="lg">

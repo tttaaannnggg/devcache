@@ -138,32 +138,3 @@ export const createSnippet = () => dispatch => {
   })
   .catch(err => console.log(err))
 }
-
-//___________________________
-
-
-  // Database Methods
-
-  // submitSearch() {
-  //   let tag = this.state.search;
-  //   this.grabSnippetsByTag(tag);
-  // };
-
-  // grabSnippetsFromDB(e) {
-  //   let tag = e.target.id;
-  //   this.grabSnippetsByTag(tag);
-  // };
-
-  // deleteSnippet(id, index) {
-
-  //   fetch(`http://localhost:3000/deletesnippetbyid?id=${id}`, {
-  //     headers: { "Content-Type": "application/json" },
-  //     method: 'get'
-  //   })
-  //     .then(() => {
-  //       let updated = [...this.state.taggedSnippets];
-  //       updated.splice(index, 1);
-  //       this.setState({ taggedSnippets: updated })
-  //     })
-  //     .catch(err => console.error(err));
-  // };
