@@ -30,6 +30,7 @@ controller.verifyUser = (req, res, next) => {
         if (judgement) {
           const session_id = uuid();
           res.locals.session_id = session_id;
+          console.log('user match in db', result.rows);
           res.locals.user_id = result.rows[0].user_id;
           next();
         } else {

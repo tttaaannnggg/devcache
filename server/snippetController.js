@@ -9,6 +9,7 @@ const snippetController = {};
 snippetController.createSnippet = (req, res, next) => {
   const { snippet, comments, project } = req.body;
   const user_id = req.cookies.user_id;
+  // console.log('createSnippppppppet user id', user_id)
   const date = new Date();
   const snippetQuery = {
     name: 'create-snippet',
@@ -87,10 +88,11 @@ snippetController.getSnippetsBySnippetIds = (req, res) => {
   const snippetIds = res.locals.snippets;
   const userId = req.cookies.user_id;
   // snippetIds looks good
-  // console.log('snippet ids is', snippetIds);
+  console.log('snippet ids is', snippetIds);
   const promises = [];
 
   snippetIds.forEach(id => {
+    console.log('each snippet id', id)
     const query = {
       name: 'getSnippetsBySnippetId',
       text: 'SELECT * FROM snippets WHERE snippets.id = $1 AND snippets.user_id = $2;',
