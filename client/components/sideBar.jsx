@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchBar from './searchBar.jsx'
 
 const sideBar = props => {
   
@@ -10,7 +9,7 @@ const sideBar = props => {
   for (let i = 0; i < tagArray.length; i++) {
     displayArray.push(
       <p 
-        onClick={ (e) => props.grabSnippetsFromDB(e) }
+        onClick={ (event) => props.grabSnippetsFromDB(event) }
         id={ tagArray[i] }
         key={ i }
       >
@@ -21,10 +20,18 @@ const sideBar = props => {
 
   return (
     <div className='side-bar'>
-      <SearchBar 
-        updateSearch={ props.updateSearch }
-        submitSearch={ props.submitSearch }
-      />
+      <div className='search-bar'>
+        <input 
+          id='search-field'
+          type='text'
+          name='search-bar'
+          placeholder='search by tag'
+          value={ props.search }
+          onChange={ props.enterSearch }
+        />
+        <i className='fas fa-search' 
+        />
+      </div>
       { displayArray }
     </div>
   );

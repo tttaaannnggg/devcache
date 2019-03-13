@@ -63,3 +63,125 @@ export const userLogout = (userid) => dispatch => {
   return Axios.post('/logout', {id: userid})
   .then(() => dispatch(logOut()))
 }
+
+export const enterSnippet = (value) => ({
+  type: types.ENTER_SNIPPET,
+  payload: value,
+})
+
+export const enterComments = (value) => ({
+  type: types.ENTER_COMMENTS,
+  payload: value,
+})
+
+export const enterProject = (value) => ({
+  type: types.ENTER_PROJECT,
+  payload: value,
+})
+
+export const enterTags = (value) => ({
+  type: types.ENTER_TAGS,
+  payload: value,
+})
+
+export const enterSearch = (value) => ({
+  type: types.ENTER_SEARCH,
+  payload: value,
+})
+
+export const getTagsFromDB = () => dispatch => {
+  return fetch('http://localhost:3000/gettags', {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET'
+  })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.GET_TAGS,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+export const getSnippetsByTag = (tag) => dispatch => {
+  return fetch(`http://localhost:3000/getsnippetsbytag/?tag=${tag}`, {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET'
+  })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.GET_SNIPPET_BY_TAG,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+export const getSnippetsByUser = (username) => dispatch => {
+  return fetch(`http://localhost:3000/getsnippetsbyuser/?username=${username}`, {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET'
+  })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.GET_SNIPPET_BY_USER,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+export const createSnippet = () => dispatch => {
+  return fetch('http://localhost:3000/createsnippet', {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'post',
+      body: JSON.stringify({
+        snippet: getState().snip.snippet,
+        comments: getState().snip.comments,
+        project: getState().snip.project,
+        tags: getState().snip.tags,
+      })
+    })
+  .then( res => {
+    if(res.ok) getTagsFromDB()
+  })
+  .catch(err => console.log(err))
+}
+
+export const deleteSnippet = (id) => dispatch => {
+  return fetch('http://localhost:3000/deletesnippetbyid?id=${id}', {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET',
+    })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.DELETE_SNIPPET,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+//___________________________
+
+
+  // Database Methods
+
+  // submitSearch() {
+  //   let tag = this.state.search;
+  //   this.grabSnippetsByTag(tag);
+  // };
+
+  // grabSnippetsFromDB(e) {
+  //   let tag = e.target.id;
+  //   this.grabSnippetsByTag(tag);
+  // };
