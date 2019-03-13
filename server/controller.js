@@ -10,6 +10,19 @@ const controller = {};
 
 // Middleware Methods
 
+controller.getAccountInfo = (req, res, next)=>{
+  const id = req.cookies.user_id
+  const query = {
+    name: 'get-account-info',
+    text: 'SELECT * FROM accounts WHERE user_id = $1',
+    values: [id]
+  }
+  pool.query(query)
+    .then((result)=>{
+      res.json(result.rows[0]);
+    })
+}
+
 controller.verifyUser = (req, res, next) => {
   const { username, password } = req.body;
   const query = {
@@ -17,12 +30,13 @@ controller.verifyUser = (req, res, next) => {
     text: `SELECT * FROM accounts WHERE username = $1`,
     values: [username]
   };
-  
+
+  // console.log('shane test', `'${username}'`);
+  // console.log('password is', password);
   pool.query(query)
     .then(result => {
 
       const hash = result.rows[0].password;
-
       bcrypt.compare(password, hash, function (err, judgement) {
 
         if (judgement) {
@@ -40,7 +54,6 @@ controller.verifyUser = (req, res, next) => {
 
 controller.createUser = (req, res, next) => {
   const { fullname, username, email, password } = req.body;
-
   bcrypt.hash(password, saltRounds, (err, hash) => {
     const query = {
       name: 'create-user',

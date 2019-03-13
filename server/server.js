@@ -27,6 +27,8 @@ app.get('/build/bundle.js', (req, res) => {
   res.sendFile(path.resolve('./build/bundle.js'));
 });
 
+app.get('/api/user', controller.getAccountInfo);
+
 app.get('/gettags', snippetController.getAllUserTags);
 
 app.get('/getsnippetsbytag', snippetController.getSnippetIdsByTag, snippetController.getSnippetsBySnippetIds);
