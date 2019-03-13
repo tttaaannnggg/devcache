@@ -10,7 +10,7 @@ import Main from './components/main.jsx';
 
 class App extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -21,12 +21,12 @@ class App extends Component {
       isLoggedIn: false,
       isRegistered: false
     };
-    
+
     this.updateFullNameState = this.updateFullNameState.bind(this);
     this.updateEmailState = this.updateEmailState.bind(this);
     this.updateUserState = this.updateUserState.bind(this);
     this.updatePassState = this.updatePassState.bind(this);
-    
+
     this.createUser = this.createUser.bind(this);
     this.verifyUser = this.verifyUser.bind(this);
     this.registerUser = this.registerUser.bind(this);
@@ -60,44 +60,45 @@ class App extends Component {
     const { fullname, email, username, password } = this.state;
 
     fetch('http://localhost:3000/signup', {
-      headers: { "Content-Type": "application/json" }, 
+      headers: { "Content-Type": "application/json" },
       method: 'post',
       body: JSON.stringify({ fullname, email, username, password })
     })
-    .then(res =>  {
-      if (res.ok) this.setState({ isLoggedIn: true });
-    })
-    .catch(err => console.error('err -->', err));
+      .then(res => {
+        if (res.ok) this.setState({ isLoggedIn: true });
+      })
+      .catch(err => console.error('err -->', err));
   };
 
   verifyUser() {
     const { username, password } = this.state;
-
+    console.log('username is', username);
+    console.log('password is', password);
     fetch('http://localhost:3000/login', {
-      headers: { "Content-Type": "application/json" }, 
+      headers: { "Content-Type": "application/json" },
       method: 'post',
       body: JSON.stringify({ username, password })
     })
-    .then(res => {
-      if (res.ok) this.setState({ isLoggedIn: true });
-    })
-    .catch(err => console.error('err -->', err));
+      .then(res => {
+        if (res.ok) this.setState({ isLoggedIn: true });
+      })
+      .catch(err => console.error('err -->', err));
   };
 
   render() {
-    
+
     if (this.state.isLoggedIn) {
       return <Main />
     } else {
       if (this.state.isRegistered) {
         return (
           <React.Fragment>
-            <Registration 
-              updateFullNameState={ this.updateFullNameState }
-              updateEmailState={ this.updateEmailState }
-              updateUserState={ this.updateUserState }
-              updatePassState={ this.updatePassState }
-              createUser={ this.createUser }
+            <Registration
+              updateFullNameState={this.updateFullNameState}
+              updateEmailState={this.updateEmailState}
+              updateUserState={this.updateUserState}
+              updatePassState={this.updatePassState}
+              createUser={this.createUser}
             />
           </React.Fragment>
         );
@@ -107,14 +108,14 @@ class App extends Component {
             <h1>devCache</h1>
             <p>A personalized cache of code snippets for developers.</p>
             <Login
-              updateUserState={ this.updateUserState }
-              updatePassState={ this.updatePassState }
-              verifyUser={ this.verifyUser }
+              updateUserState={this.updateUserState}
+              updatePassState={this.updatePassState}
+              verifyUser={this.verifyUser}
               registerUser={this.registerUser}
             />
           </React.Fragment>
-      );
-     }
+        );
+      }
     }
   };
 };
