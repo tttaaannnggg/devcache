@@ -10,6 +10,20 @@ const controller = {};
 
 // Middleware Methods
 
+controller.getUserIdByUsername = (req, res, next) =>{
+  const username = req.query.username;
+  const query ={
+    name: 'get-user-id',
+    text: 'SELECT user_id from accounts WHERE username = $1',
+    values: [username]
+  }
+  pool.query(query)
+    .then((result)=>{
+      res.locals.userInfo = result.rows[0];
+      next();
+    })
+}
+
 controller.getAccountInfo = (req, res, next) => {
   const id = req.cookies.user_id
   const query = {
