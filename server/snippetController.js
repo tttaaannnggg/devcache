@@ -84,8 +84,6 @@ snippetController.getSnippetIdsByTag = (req, res, next) => {
 snippetController.getSnippetsBySnippetIds = (req, res) => {
   const snippetIds = res.locals.snippets;
   const userId = req.cookies.user_id;
-  // snippetIds looks good
-  console.log('snippet ids is', snippetIds);
   const promises = [];
 
   snippetIds.forEach(id => {
@@ -107,13 +105,10 @@ snippetController.getSnippetsBySnippetIds = (req, res) => {
         if (y < 2) resultsArr.push(pool.query(x));
       });
 
-      // console.log('resultsArray', resultsArr);
-
       Promise.all(resultsArr)
         .then(snippets => {
           let arr = [];
           snippets.forEach(obj => arr = arr.concat(obj.rows));
-          console.log('arr is', arr);
           res.json(arr);
         })
         .catch(err => console.error(err.stack));
