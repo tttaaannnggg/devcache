@@ -8,22 +8,23 @@ const Login = props => {
         id='user'
         type='text'
         name='user'
-        placeholder='username.'
-        onChange={ props.updateUserState }
+        value={props.username}
+        placeholder='username'
+        onChange={ props.enterUsername }
       />
       <input
         id='pass'
         type='password'
         name='pass'
-        placeholder='password.'
-        onChange={ props.updatePassState }
+        value={props.password}
+        placeholder='password'
+        onChange={ props.enterPassword }
       />
       <button
-        onClick={ props.verifyUser }
-      >
-        Login.
-      </button>
-      <a onClick={ props.registerUser }>Register</a> 
+        onClick={() => props.userLogin(props.username, props.password) }
+      >Login</button>
+      {/* This redirects to register */}
+      {/* <a onClick={ props.registerUser }>Register</a>  */}
     </div>
   );
 };
