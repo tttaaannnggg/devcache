@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 // Import Children
 import Login from './components/Login.jsx';
 import Registration from './components/Registration.jsx';
-import Home from './components/Home.jsx';
-// import Header from '../components/Header.jsx';
+import HomeContainer from './containers/HomeContainer.jsx';
+import Header from './components/Header.jsx';
 
 const mapStateToProps = (store) => ({
   isLoggedIn: store.user.isLoggedIn,
@@ -19,7 +19,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = dispatch => ({
   userLogin: (username, password) => { dispatch(actions.userLogin(username, password)) },
-  userSignup: (fullName, email, password) => { dispatch(actions.userSignup(fullName, email, password)) },
+  userSignup: (fullName, username, email, password) => { dispatch(actions.userSignup(fullName, username, email, password)) },
   inSession: () => { dispatch(actions.inSession()) },
   enterEmail: (event) => { dispatch(actions.enterEmail(event.target.value)) },
   enterFullName: (event) => { dispatch(actions.enterFullName(event.target.value)) },
@@ -37,12 +37,17 @@ class App extends Component {
     const { userLogin, userSignup, userLogout, enterEmail, email, enterPassword, password, enterFullName, fullName, userInfo, username, enterUsername, isLoggedIn } = this.props;
     return(
     <div>
+      {(isLoggedIn) ? <Header userInfo={userInfo} userLogout={userLogout} /> : '' }
       <Router>
         <Switch>
-          <Route exact path="/" render={ () =>
-              // <h1>devCache</h1>
-              // <p>A personalized cache of code snippets for developers.</p>
-              <Login 
+        <Route path="/" render={ () => !isLoggedIn ? <Redirect to="/login" />
+              : <HomeContainer 
+                userInfo={userInfo}
+                userLogout={userLogout}
+              />
+          } />
+          <Route exact path="/login" render={ () => isLoggedIn ? <Redirect to="/" />
+              : <Login 
                 userLogin={userLogin} 
                 enterUsername={enterUsername} 
                 enterPassword={enterPassword} 
@@ -50,38 +55,23 @@ class App extends Component {
                 password={password} 
               />
           } />
+          <Route path="/signup" render={ () => isLoggedIn ? <Redirect to="/" />
+              : <Registration 
+                userSignup={userSignup}
+                enterEmail={enterEmail}
+                email={email}
+                enterFullName={enterFullName}
+                fullName={fullName}
+                enterUsername={enterUsername}
+                username={username}
+                enterPassword={enterPassword}
+                password={password}
+              />
+          } />
         </Switch>
       </Router>
     </div>
     )
-    // if (isLoggedIn) {
-    //   return <Home />
-    // } else {
-    //   if (true) {
-    //     return (
-    //       <React.Fragment>
-    //         <Registration
-    //           enterEmail={enterEmail}
-    //           email={email}
-    //           enterFullName={enterFullName}
-    //           fullName={fullName}
-    //           enterUsername={enterUsername}
-    //           username={username}
-    //           enterPassword={enterPassword}
-    //           password={password}
-    //           // create user
-    //         />
-    //       </React.Fragment>
-    //     );
-      // } else {
-      //   return (
-      //     <React.Fragment>
-            // <h1>devCache</h1>
-            // <p>A personalized cache of code snippets for developers.</p>
-      //       <Login userLogin={userLogin} enterUsername={enterUsername} enterPassword={enterPassword} username={username} password={password} />)}/>
-      //     </React.Fragment>
-      //   );
-      // }
-    }
   }
+}
   export default connect(mapStateToProps, mapDispatchToProps)(App);

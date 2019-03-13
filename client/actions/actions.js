@@ -36,7 +36,7 @@ export const inSession = () => dispatch => {
   return Axios.get('/api/user')
     .then(userInfo => dispatch(logIn(userInfo)))
     .catch(err => dispatch(signupFailed(err)))
-}
+};
 
 export const enterEmail = (value) => ({
   type: types.ENTER_EMAIL,
@@ -63,3 +63,107 @@ export const userLogout = (userid) => dispatch => {
   return Axios.post('/logout', {id: userid})
   .then(() => dispatch(logOut()))
 }
+
+export const enterSnippetContent = (value) => ({
+  type: types.ENTER_SNIPPET,
+  payload: value,
+})
+
+export const enterComments = (value) => ({
+  type: types.ENTER_COMMENTS,
+  payload: value,
+})
+
+export const enterProject = (value) => ({
+  type: types.ENTER_PROJECT,
+  payload: value,
+})
+
+export const enterTags = (value) => ({
+  type: types.ENTER_TAGS,
+  payload: value,
+})
+
+export const enterSearch = (value) => ({
+  type: types.ENTER_SEARCH,
+  payload: value,
+})
+
+export const getTagsFromDB = () => dispatch => {
+  return fetch('http://localhost:3000/gettags', {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET'
+  })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.GET_TAGS,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+export const getSnippetsByTag = () => dispatch => {
+  return fetch(`http://localhost:3000/getsnippetsbytag/?tag=${tag}`, {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET'
+  })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.GET_SNIPPETS,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+export const createSnippet = () => dispatch => {
+  return fetch('http://localhost:3000/createsnippet', {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'post',
+      body: JSON.stringify({
+        snippet: getState().snip.snippet,
+        comments: getState().snip.comments,
+        project: getState().snip.project,
+        tags: getState().snip.tags,
+      })
+    })
+  .then( res => {
+    if(res.ok) getTagsFromDB()
+  })
+  .catch(err => console.log(err))
+}
+
+//___________________________
+
+
+  // Database Methods
+
+  // submitSearch() {
+  //   let tag = this.state.search;
+  //   this.grabSnippetsByTag(tag);
+  // };
+
+  // grabSnippetsFromDB(e) {
+  //   let tag = e.target.id;
+  //   this.grabSnippetsByTag(tag);
+  // };
+
+  // deleteSnippet(id, index) {
+
+  //   fetch(`http://localhost:3000/deletesnippetbyid?id=${id}`, {
+  //     headers: { "Content-Type": "application/json" },
+  //     method: 'get'
+  //   })
+  //     .then(() => {
+  //       let updated = [...this.state.taggedSnippets];
+  //       updated.splice(index, 1);
+  //       this.setState({ taggedSnippets: updated })
+  //     })
+  //     .catch(err => console.error(err));
+  // };

@@ -14,7 +14,8 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN:{
+
+    case types.LOGIN:
       return {
         ...state,
         userInfo: action.payload.user,
@@ -23,44 +24,51 @@ const userReducer = (state = initialState, action) => {
         isLoggedIn: true,
         email: '',
         password: '',
-      }}
-      case types.LOGIN_FAILED: {
+      }
+
+    case types.LOGIN_FAILED:
       return {
         ...state,
         loginError: action.payload,
       }
-      }
-      case types.SIGNUP_FAILED:
+    
+    case types.SIGNUP_FAILED:
       return {
         ...state,
         signupError: action.payload,
       }
-      case types.ENTER_EMAIL:
+
+    case types.ENTER_EMAIL:
       return {
         ...state,
         email: action.payload,
       }
-      case types.ENTER_FULLNAME:
+
+    case types.ENTER_FULLNAME:
       return {
         ...state,
         fullName: action.payload,
       }
-      case types.ENTER_PASSWORD:
+
+    case types.ENTER_PASSWORD:
       return {
         ...state,
         password: action.payload,
       }
-      case types.ENTER_USERNAME:
+
+    case types.ENTER_USERNAME:
       return {
         ...state,
         username: action.payload,
       }
-      case types.LOGOUT:
+
+    case types.LOGOUT:
       return {
         ...state,
         isLoggedIn: false,
       }
-      default:
+
+    default:
       return state;
   }
 }
