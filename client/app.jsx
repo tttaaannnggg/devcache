@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 // Import Children
 import Login from './components/Login.jsx';
 import Registration from './components/Registration.jsx';
-import Home from '../components/Home.jsx';
+import Home from './components/Home.jsx';
 // import Header from '../components/Header.jsx';
 
 const mapStateToProps = (store) => ({
@@ -35,9 +35,27 @@ class App extends Component {
   }
   render() {
     const { userLogin, userSignup, userLogout, enterEmail, email, enterPassword, password, enterFullName, fullName, userInfo, username, enterUsername, isLoggedIn } = this.props;
-
-    if (isLoggedIn) {
-      return <Home />
+    return(
+    <div>
+      <Router>
+        <Switch>
+          <Route exact path="/" render={ () =>
+              // <h1>devCache</h1>
+              // <p>A personalized cache of code snippets for developers.</p>
+              <Login 
+                userLogin={userLogin} 
+                enterUsername={enterUsername} 
+                enterPassword={enterPassword} 
+                username={username} 
+                password={password} 
+              />
+          } />
+        </Switch>
+      </Router>
+    </div>
+    )
+    // if (isLoggedIn) {
+    //   return <Home />
     // } else {
     //   if (true) {
     //     return (
@@ -55,15 +73,15 @@ class App extends Component {
     //         />
     //       </React.Fragment>
     //     );
-      } else {
-        return (
-          <React.Fragment>
-            <h1>devCache</h1>
-            <p>A personalized cache of code snippets for developers.</p>
-            <Login userLogin={userLogin} enterUsername={enterUsername} enterPassword={enterPassword} username={username} password={password} />)}/>
-          </React.Fragment>
-        );
-      }
+      // } else {
+      //   return (
+      //     <React.Fragment>
+            // <h1>devCache</h1>
+            // <p>A personalized cache of code snippets for developers.</p>
+      //       <Login userLogin={userLogin} enterUsername={enterUsername} enterPassword={enterPassword} username={username} password={password} />)}/>
+      //     </React.Fragment>
+      //   );
+      // }
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(App);
