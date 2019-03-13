@@ -34,6 +34,8 @@ app.get('/getsnippetsbytag', snippetController.getSnippetIdsByTag, snippetContro
 app.get('/deletesnippetbyid', snippetController.deleteSnippet);
 
 // POST Endpoints
+// (req, res, next) => {
+// return console.log('req.body before verifyUser is'
 
 app.post('/login', controller.verifyUser, sessionController.setCookie, sessionController.startSession);
 
