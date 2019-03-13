@@ -7,7 +7,6 @@ const sessionController = {};
 // Middleware Methods
 
 sessionController.setCookie = (req, res, next) => {
-  res.cookie('test_cookie', 'test');
   res.cookie('session_id', res.locals.session_id);
   res.cookie('user_id', res.locals.user_id);
   next();

@@ -10,7 +10,7 @@ const controller = {};
 
 // Middleware Methods
 
-controller.getAccountInfo = (req, res, next)=>{
+controller.getAccountInfo = (req, res, next) => {
   const id = req.cookies.user_id
   const query = {
     name: 'get-account-info',
@@ -18,8 +18,9 @@ controller.getAccountInfo = (req, res, next)=>{
     values: [id]
   }
   pool.query(query)
-    .then((result)=>{
-      res.json(result.rows[0]);
+    .then((result) => {
+      res.locals.userInfo = result.rows[0];
+      next();
     })
 }
 
@@ -31,8 +32,6 @@ controller.verifyUser = (req, res, next) => {
     values: [username]
   };
 
-  // console.log('shane test', `'${username}'`);
-  // console.log('password is', password);
   pool.query(query)
     .then(result => {
 
