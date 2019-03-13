@@ -1,125 +1,87 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
+import * as actions from "./actions/actions";
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 // Import Children
+import Login from './components/Login.jsx';
+import Registration from './components/Registration.jsx';
+import Home from './components/Home.jsx';
+// import Header from '../components/Header.jsx';
 
-import Login from './components/login.jsx';
-import Registration from './components/registration.jsx';
-import Main from './components/main.jsx';
+const mapStateToProps = (store) => ({
+  isLoggedIn: store.user.isLoggedIn,
+  userInfo: store.user.userInfo,
+  email: store.user.email,
+  fullName: store.user.fullName,
+  password: store.user.password,
+  username: store.user.username,
+})
 
-// Component Body
+const mapDispatchToProps = dispatch => ({
+  userLogin: (username, password) => { dispatch(actions.userLogin(username, password)) },
+  userSignup: (fullName, email, password) => { dispatch(actions.userSignup(fullName, email, password)) },
+  inSession: () => { dispatch(actions.inSession()) },
+  enterEmail: (event) => { dispatch(actions.enterEmail(event.target.value)) },
+  enterFullName: (event) => { dispatch(actions.enterFullName(event.target.value)) },
+  enterPassword: (event) => { dispatch(actions.enterPassword(event.target.value)) },
+  enterUsername: (event) => { dispatch(actions.enterUsername(event.target.value)) },
+  userLogout: (id) => { dispatch(actions.userLogout(id)) },
+})
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      username: "",
-      password: "",
-      fullname: "",
-      email: "",
-      isLoggedIn: false,
-      isRegistered: false
-    };
-
-    this.updateFullNameState = this.updateFullNameState.bind(this);
-    this.updateEmailState = this.updateEmailState.bind(this);
-    this.updateUserState = this.updateUserState.bind(this);
-    this.updatePassState = this.updatePassState.bind(this);
-
-    this.createUser = this.createUser.bind(this);
-    this.verifyUser = this.verifyUser.bind(this);
-    this.registerUser = this.registerUser.bind(this);
-  };
-
-  // Update Methods
-
-  registerUser() {
-    this.setState({ isRegistered: true })
-  };
-
-  updateFullNameState(e) {
-    this.setState({ fullname: e.target.value });
-  };
-
-  updateEmailState(e) {
-    this.setState({ email: e.target.value });
-  };
-
-  updateUserState(e) {
-    this.setState({ username: e.target.value });
-  };
-
-  updatePassState(e) {
-    this.setState({ password: e.target.value });
-  };
-
-  // User Methods
-
-  createUser() {
-    const { fullname, email, username, password } = this.state;
-
-    fetch('http://localhost:3000/signup', {
-      headers: { "Content-Type": "application/json" },
-      credentials: 'include',
-      method: 'post',
-      body: JSON.stringify({ fullname, email, username, password })
-    })
-      .then(res => {
-        if (res.ok) this.setState({ isLoggedIn: true });
-      })
-      .catch(err => console.error('err -->', err));
-  };
-
-  verifyUser() {
-    const { username, password } = this.state;
-    console.log('username is', username);
-    console.log('password is', password);
-    fetch('http://localhost:3000/login', {
-      credentials: 'include',
-      headers: { "Content-Type": "application/json" },
-      method: 'post',
-      body: JSON.stringify({ username, password })
-    })
-      .then(res => {
-        if (res.ok) this.setState({ isLoggedIn: true });
-      })
-      .catch(err => console.error('err -->', err));
-  };
-
+  }
   render() {
-
-    if (this.state.isLoggedIn) {
-      return <Main />
-    } else {
-      if (this.state.isRegistered) {
-        return (
-          <React.Fragment>
-            <Registration
-              updateFullNameState={this.updateFullNameState}
-              updateEmailState={this.updateEmailState}
-              updateUserState={this.updateUserState}
-              updatePassState={this.updatePassState}
-              createUser={this.createUser}
-            />
-          </React.Fragment>
-        );
-      } else {
-        return (
-          <React.Fragment>
-            <h1>devCache</h1>
-            <p>A personalized cache of code snippets for developers.</p>
-            <Login
-              updateUserState={this.updateUserState}
-              updatePassState={this.updatePassState}
-              verifyUser={this.verifyUser}
-              registerUser={this.registerUser}
-            />
-          </React.Fragment>
-        );
-      }
+    const { userLogin, userSignup, userLogout, enterEmail, email, enterPassword, password, enterFullName, fullName, userInfo, username, enterUsername, isLoggedIn } = this.props;
+    return(
+    <div>
+      <Router>
+        <Switch>
+          <Route exact path="/" render={ () =>
+              // <h1>devCache</h1>
+              // <p>A personalized cache of code snippets for developers.</p>
+              <Login 
+                userLogin={userLogin} 
+                enterUsername={enterUsername} 
+                enterPassword={enterPassword} 
+                username={username} 
+                password={password} 
+              />
+          } />
+        </Switch>
+      </Router>
+    </div>
+    )
+    // if (isLoggedIn) {
+    //   return <Home />
+    // } else {
+    //   if (true) {
+    //     return (
+    //       <React.Fragment>
+    //         <Registration
+    //           enterEmail={enterEmail}
+    //           email={email}
+    //           enterFullName={enterFullName}
+    //           fullName={fullName}
+    //           enterUsername={enterUsername}
+    //           username={username}
+    //           enterPassword={enterPassword}
+    //           password={password}
+    //           // create user
+    //         />
+    //       </React.Fragment>
+    //     );
+      // } else {
+      //   return (
+      //     <React.Fragment>
+            // <h1>devCache</h1>
+            // <p>A personalized cache of code snippets for developers.</p>
+      //       <Login userLogin={userLogin} enterUsername={enterUsername} enterPassword={enterPassword} username={username} password={password} />)}/>
+      //     </React.Fragment>
+      //   );
+      // }
     }
-  };
-};
-
-export default App;
+  }
+  export default connect(mapStateToProps, mapDispatchToProps)(App);

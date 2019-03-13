@@ -10,7 +10,7 @@ import SideBar from './sideBar.jsx';
 
 // Component Body
 
-class Main extends Component {
+class Home extends Component {
 
   constructor(props) {
     super();
@@ -168,4 +168,4 @@ class Main extends Component {
   };
 };
 
-export default Main;
+export default Home;
