@@ -87,7 +87,6 @@ snippetController.getSnippetsBySnippetIds = (req, res) => {
   const promises = [];
 
   snippetIds.forEach(id => {
-    console.log('each snippet id', id)
     const query = {
       name: 'getSnippetsBySnippetId',
       text: 'SELECT * FROM snippets WHERE snippets.id = $1 AND snippets.user_id = $2;',
