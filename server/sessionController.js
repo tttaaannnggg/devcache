@@ -7,14 +7,13 @@ const sessionController = {};
 // Middleware Methods
 
 sessionController.setCookie = (req, res, next) => {
-
+  res.cookie('test_cookie', 'test');
   res.cookie('session_id', res.locals.session_id);
   res.cookie('user_id', res.locals.user_id);
   next();
 };
 
 sessionController.startSession = (req, res, next) => {
-  // return console.log('res.locals.user_id is', res.locals.user_id);
   const query = {
     name: 'create-session',
     text: 'INSERT into sessions ("usersession") values ($1);',

@@ -61,6 +61,7 @@ class App extends Component {
 
     fetch('http://localhost:3000/signup', {
       headers: { "Content-Type": "application/json" },
+      credentials: 'include',
       method: 'post',
       body: JSON.stringify({ fullname, email, username, password })
     })
@@ -75,6 +76,7 @@ class App extends Component {
     console.log('username is', username);
     console.log('password is', password);
     fetch('http://localhost:3000/login', {
+      credentials: 'include',
       headers: { "Content-Type": "application/json" },
       method: 'post',
       body: JSON.stringify({ username, password })
