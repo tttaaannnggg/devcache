@@ -14,7 +14,11 @@ const initialState = {
 const snipReducer = (state = initialState, action) => {
   switch (action.type) {
 
+<<<<<<< HEAD
+  	case types.GET_SNIPPETS:
+=======
   	case types.GET_SNIPPET_BY_TAG:
+>>>>>>> 4fb54fe6cf3fdce4de56e23b66942594e17137d4
   	  return {
   	  	...state,
   	    recievedSnippet: action.payload,

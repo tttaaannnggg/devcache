@@ -23,11 +23,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: [path.resolve(__dirname, 'node_modules')],
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }
-        ]
+        use: ['style-loader', 'css-loader'],
       }
     ]
   },
