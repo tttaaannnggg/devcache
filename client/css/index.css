@@ -226,6 +226,21 @@ h3 {
   border-top-left-radius: 10px;
   margin: 0 auto;
 }
+.main .details {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+.main .detailsLeft {
+  width: 80%;
+}
+.main .detailsRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
 .main h3 {
   font-size: 5rem;
   text-align: center;
@@ -237,14 +252,34 @@ h3 {
   padding: 10px;
   resize: none;
 }
-.main #comment {
-  height: 50px;
-  font-size: 2rem;
+.main h4 {
+  display: inline-block;
+  font-size: 1.4rem;
   text-align: right;
+  margin: 0 4px;
+  width: 100px;
+  color: #ffffff;
+  height: fit-content;
+}
+.main label {
+  background: white;
+}
+.main #comment-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main #comment {
+  height: 40px;
+  font-size: 2rem;
+  text-align: left;
+  width: -webkit-fill-available;
 }
 .main .details-box {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  height: fit-content;
 }
 .main .details-box #date-tag {
   width: 180px;
@@ -254,32 +289,33 @@ h3 {
 .main .details-box #project-tag {
   width: 150px;
   font-size: 2rem;
-  text-align: right;
+  text-align: left;
+  width: -webkit-fill-available;
 }
 .main .details-box #tags {
   width: 635px;
   font-size: 2rem;
   text-align: right;
 }
-.main .details-box button {
-  width: 200px;
-  height: 60px;
-  color: #ffffff;
-  background-color: #555555;
-  padding: 5px;
-  border: 2px solid #555555;
+.main button {
+  height: 100px;
+  width: 120px;
+  color: Gainsboro;
+  background-color: #404040;
+  padding: 3px;
+  border: 2px solid #ffffff;
   border-radius: 5px;
   font-size: 1.8rem;
-  font-weight: 500;
+  font-weight: 800;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
-.main .details-box button:hover {
-  font-weight: 700;
-  background-color: #ffffff;
-  color: #000000;
+.main button:hover {
+  background-color: #8c8c8c;
+  color: #ffffff;
+  border: 3px solid #ffffff;
 }
 .side-bar {
   width: 20%;

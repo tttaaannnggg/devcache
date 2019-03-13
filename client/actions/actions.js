@@ -64,7 +64,7 @@ export const userLogout = (userid) => dispatch => {
   .then(() => dispatch(logOut()))
 }
 
-export const enterSnippetContent = (value) => ({
+export const enterSnippet = (value) => ({
   type: types.ENTER_SNIPPET,
   payload: value,
 })
@@ -105,7 +105,7 @@ export const getTagsFromDB = () => dispatch => {
   .catch(err => console.log(err))
 }
 
-export const getSnippetsByTag = () => dispatch => {
+export const getSnippetsByTag = (tag) => dispatch => {
   return fetch(`http://localhost:3000/getsnippetsbytag/?tag=${tag}`, {
       headers: { "Content-Type": "application/json" },
       credentials: 'include',
@@ -114,7 +114,23 @@ export const getSnippetsByTag = () => dispatch => {
   .then(res => res.json())
   .then(jsonData => 
     dispatch({
-      type: types.GET_SNIPPETS,
+      type: types.GET_SNIPPET_BY_TAG,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+export const getSnippetsByUser = (username) => dispatch => {
+  return fetch(`http://localhost:3000/getsnippetsbytag/?username=${username}`, {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET'
+  })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.GET_SNIPPET_BY_USER,
       payload: jsonData,
     })
   )
@@ -139,31 +155,33 @@ export const createSnippet = () => dispatch => {
   .catch(err => console.log(err))
 }
 
+export const deleteSnippet = (id) => dispatch => {
+  return fetch('http://localhost:3000/deletesnippetbyid?id=${id}', {
+      headers: { "Content-Type": "application/json" },
+      credentials: 'include',
+      method: 'GET',
+    })
+  .then(res => res.json())
+  .then(jsonData => 
+    dispatch({
+      type: types.DELETE_SNIPPET,
+      payload: jsonData,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
 //___________________________
 
 
   // Database Methods
 
-  submitSearch() {
-    let tag = this.state.search;
-    this.grabSnippetsByTag(tag);
-  };
+  // submitSearch() {
+  //   let tag = this.state.search;
+  //   this.grabSnippetsByTag(tag);
+  // };
 
-  grabSnippetsFromDB(e) {
-    let tag = e.target.id;
-    this.grabSnippetsByTag(tag);
-  };
-
-  deleteSnippet(id, index) {
-
-    fetch(`http://localhost:3000/deletesnippetbyid?id=${id}`, {
-      headers: { "Content-Type": "application/json" },
-      method: 'get'
-    })
-      .then(() => {
-        let updated = [...this.state.taggedSnippets];
-        updated.splice(index, 1);
-        this.setState({ taggedSnippets: updated })
-      })
-      .catch(err => console.error(err));
-  };
+  // grabSnippetsFromDB(e) {
+  //   let tag = e.target.id;
+  //   this.grabSnippetsByTag(tag);
+  // };
