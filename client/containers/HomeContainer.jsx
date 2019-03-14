@@ -16,12 +16,13 @@ const mapStateToProps = (store) => ({
   project: store.snip.project,
   tags: store.snip.tags,
   search: store.snip.search,
-  recievedTags: store.snip.recievedTags,
-  recievedSnippet: store.snip.recievedSnippet,
+  // recievedTags: store.snip.recievedTags,
+  recievedSnippets: store.snip.recievedSnippets,
 })
 
 const mapDispatchToProps = dispatch => ({
   userLogout: (id) => { dispatch(actions.userLogout(id)) },
+
   enterSnippet: (event) => { dispatch(actions.enterSnippet(event.target.value)) },
   enterComments: (event) => { dispatch(actions.enterComments(event.target.value)) },
   enterProject: (event) => { dispatch(actions.enterProject(event.target.value)) },
@@ -29,13 +30,12 @@ const mapDispatchToProps = dispatch => ({
   enterSearch: (event) => { dispatch(actions.enterSearch(event.target.value)) },
 
   createSnippet: () => { dispatch(actions.createSnippet()) },
-
   deleteSnippet: () => { dispatch(actions.deleteSnippet()) },
 
   getSnippetsByUser: (username) => { dispatch(actions.getSnippetsByUser(username)) },
   getSnippetsByTag: (tag) => { dispatch(actions.getSnippetsByTag(tag)) },
 
-  getTagsFromDB: () => { dispatch(actions.getTagsFromDB()) },
+  // getTagsFromDB: () => { dispatch(actions.getTagsFromDB()) },
 
 })
 
@@ -45,16 +45,6 @@ class HomeContainer extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      snippet: '',
-      commments: '',
-      project: '',
-      tags: '',
-      search: '',
-      userTags: [],
-      taggedSnippets: []
-    }
   }
 
   // componentDidMount() {
@@ -65,7 +55,7 @@ class HomeContainer extends Component {
 
   render() {
 
-    const { userInfo, snippet, comments, project, tags, search, recievedTags, recievedSnippet, getTagsFromDB, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
+    const { userInfo, snippet, comments, project, tags, search, recievedSnippets, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
 
     return (
       <React.Fragment>
@@ -89,15 +79,11 @@ class HomeContainer extends Component {
           </div>
           <SideBar
             enterSearch={enterSearch}
-            getTagsFromDB={getTagsFromDB}
-            recievedTags={recievedTags}
-            grabSnippetsFromDB={this.grabSnippetsFromDB}
+            serach={search}
+            getSnippetsByUser={getSnippetsByUser}
           />
         </div>
-        <DisplaySnippets
-          taggedSnippets={this.state.taggedSnippets}
-          deleteSnippet={this.deleteSnippet}
-        />
+
       </React.Fragment>
     );
   };

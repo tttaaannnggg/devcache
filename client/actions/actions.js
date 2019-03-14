@@ -137,9 +137,12 @@ export const getSnippetsByUser = (username) => dispatch => {
   .catch(err => console.log(err))
 }
 
-export const createSnippet = () => dispatch => {
+export const createSnippet = () => (dispatch, getState) => {
+  console.log('lol')
   return fetch('http://localhost:3000/createsnippet', {
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+      },
       credentials: 'include',
       method: 'post',
       body: JSON.stringify({
@@ -150,7 +153,7 @@ export const createSnippet = () => dispatch => {
       })
     })
   .then( res => {
-    if(res.ok) getTagsFromDB()
+    if(res.ok) getSnippetsByUser(getState().user.username)
   })
   .catch(err => console.log(err))
 }

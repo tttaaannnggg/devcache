@@ -6,6 +6,11 @@ const sideBar = props => {
   const tagArray = Array.from(tagSet);
   const displayArray = [];
 
+  // TODO
+  // get all snippets by current user
+  // then, filter all current user's snippets by props.search
+  //
+
   for (let i = 0; i < tagArray.length; i++) {
     displayArray.push(
       <p 
