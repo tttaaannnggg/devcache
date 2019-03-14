@@ -31,12 +31,11 @@ module.exports = {
     publicPath: '/build',
     contentBase: './',
     proxy: {
-      '/': {
+        context: ['/api/user', '/login', '/signup', '/logout'],
         target: 'http://localhost:3000',
-        secure: false
-      }
-    },
-    port: 8080,
-    hot: true
+        secure: false,
+        port: 8080,
+        hot: true
+    }
   },
 };

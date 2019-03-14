@@ -6,8 +6,8 @@ const initialState = {
   project: '',
   tags: '',
   search: '',
-  recievedTags: [],
-  recievedSnippet: '',
+  recievedSnippets: [],
+  userSnippets: [],
 
 }
 
@@ -17,20 +17,26 @@ const snipReducer = (state = initialState, action) => {
     case types.GET_SNIPPET_BY_TAG:
       return {
         ...state,
-        recievedSnippet: action.payload,
+        recievedSnippets: action.payload,
       }
 
     case types.GET_SNIPPET_BY_USER:
       return {
         ...state,
-        recievedSnippet: action.payload,
+        recievedSnippets: action.payload,
       }
 
-    case types.GET_TAGS:
+    case types.GET_SNIPPET_MINE_ONLY:
       return {
         ...state,
-        recievedTags: action.payload,
+        userSnippets: action.payload.data,
       }
+
+    // case types.GET_TAGS:
+    //   return {
+    //   	...state,
+    //     recievedTags: action.payload,
+    //   }
 
     case types.ENTER_SNIPPET:
       return {

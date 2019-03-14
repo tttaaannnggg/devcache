@@ -1,45 +1,33 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
-const displaySnippets = props => {
-  const snippetsArray = props.taggedSnippets;
+const DisplaySnippets = props => {
+  const snippetsArray = props.userSnippets;
   const snippetsDisplayArray = [];
 
-  for (let i = 0; i < snippetsArray.length; i++) {
-    snippetsDisplayArray.push(
-      <div 
-        className='tagged-snippet' 
-        key={'snippet' + i}
-        id={ snippetsArray[i].id }
-      >
-        <div className='tagged-content-box'>
-          <p className='tagged-snippet-content'>
-            { snippetsArray[i].snippet }
-          </p>
-          <i 
-            className="fas fa-trash" 
-            onClick={ () => props.deleteSnippet(snippetsArray[i].id, i) }
-          />
+  if(snippetsArray) {
+    for (let i = 0; i < snippetsArray.length; i++) {
+      snippetsDisplayArray.push(
+        <div 
+          className='tagged-snippet' 
+          key={'snippet' + i}
+          id={ snippetsArray[i].id }
+        >
+          <div className='tagged-content-box'>
+            <p className='tagged-snippet-content'>
+              { snippetsArray[i].snippet }
+            </p>
+          </div>
+
         </div>
-        <div className='tagged-details-box'>
-          <p className='tagged-snippet-date'>
-            { snippetsArray[i].date }
-          </p>
-          <p className='tagged-snippet-project'>
-            { snippetsArray[i].project }
-          </p>
-          <p className='tagged-snippet-comments'>
-            { snippetsArray[i].comments }
-          </p>
-        </div>
-      </div>
-    );
-  };
-  
+      );
+    };
+  }
   return (
-    <div className='tagged-snippets-box'>
-      { snippetsDisplayArray }
+    <div>
+      {snippetsDisplayArray}
     </div>
   );
-};
+}
 
-export default displaySnippets;
+export default DisplaySnippets;
