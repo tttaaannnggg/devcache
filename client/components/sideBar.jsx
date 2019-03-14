@@ -30,7 +30,6 @@ const sideBar = function(props) {
   };
 
   function massOnChange(event) {
-    console.log()
     event.persist()
     props.enterSearch(event);
     props.trieFindChildren(event);
