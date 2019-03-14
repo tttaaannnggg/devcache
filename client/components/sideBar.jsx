@@ -1,11 +1,18 @@
 import React from 'react';
 import { Image, Navbar, Form, Dropdown, FormControl, Button, Nav, InputGroup } from 'react-bootstrap';
 
-const sideBar = props => {
+const sideBar = function(props) {
   
   const tagSet = new Set(props.userTags);
   const tagArray = Array.from(tagSet);
   const displayArray = [];
+
+  // TODO
+  // get all snippets by current user
+  // then, filter all current user's snippets by props.search
+  //
+
+  
 
   for (let i = 0; i < tagArray.length; i++) {
     displayArray.push(

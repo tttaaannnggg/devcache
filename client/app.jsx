@@ -33,6 +33,11 @@ class App extends Component {
   constructor(props) {
     super(props);
   }
+
+  componentWillMount() {
+    this.props.inSession();
+  }
+
   render() {
     const { userLogin, userSignup, userLogout, enterEmail, email, enterPassword, password, enterFullName, fullName, userInfo, username, enterUsername, isLoggedIn } = this.props;
     return(
@@ -40,13 +45,13 @@ class App extends Component {
       {(isLoggedIn) ? <Header userInfo={userInfo} userLogout={userLogout} /> : '' }
       <Router>
         <Switch>
-        <Route path="/" render={ () => !isLoggedIn ? <Redirect to="/login" />
+        <Route exact path="/" render={ () => !isLoggedIn ? <Redirect to="/login" />
               : <HomeContainer 
                 userInfo={userInfo}
                 userLogout={userLogout}
               />
           } />
-          <Route exact path="/login" render={ () => isLoggedIn ? <Redirect to="/" />
+          <Route path="/login" render={ () => isLoggedIn ? <Redirect to="/" />
               : <Login 
                 userLogin={userLogin} 
                 enterUsername={enterUsername} 

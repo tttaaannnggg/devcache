@@ -12,16 +12,19 @@ import SideBar from '../components/sideBar.jsx';
 const mapStateToProps = (store) => ({
   userInfo: store.user.userInfo,
   snippet: store.snip.snippet,
+  userSnippets: store.snip.userSnippets,
   comments: store.snip.comments,
   project: store.snip.project,
   tags: store.snip.tags,
   search: store.snip.search,
-  recievedTags: store.snip.recievedTags,
-  recievedSnippet: store.snip.recievedSnippet,
+  // recievedTags: store.snip.recievedTags,
+  recievedSnippets: store.snip.recievedSnippets,
+  userSnippets: store.snip.userSnippets,
 })
 
 const mapDispatchToProps = dispatch => ({
   userLogout: (id) => { dispatch(actions.userLogout(id)) },
+
   enterSnippet: (event) => { dispatch(actions.enterSnippet(event.target.value)) },
   enterComments: (event) => { dispatch(actions.enterComments(event.target.value)) },
   enterProject: (event) => { dispatch(actions.enterProject(event.target.value)) },
@@ -29,43 +32,29 @@ const mapDispatchToProps = dispatch => ({
   enterSearch: (event) => { dispatch(actions.enterSearch(event.target.value)) },
 
   createSnippet: () => { dispatch(actions.createSnippet()) },
-
   deleteSnippet: () => { dispatch(actions.deleteSnippet()) },
 
   getSnippetsByUser: (username) => { dispatch(actions.getSnippetsByUser(username)) },
+  getSnippetsMineOnly: () => { dispatch(actions.getSnippetsMineOnly()) },
   getSnippetsByTag: (tag) => { dispatch(actions.getSnippetsByTag(tag)) },
 
-  getTagsFromDB: () => { dispatch(actions.getTagsFromDB()) },
+  // getTagsFromDB: () => { dispatch(actions.getTagsFromDB()) },
 
 })
-
-// Component Body
 
 class HomeContainer extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      snippet: '',
-      commments: '',
-      project: '',
-      tags: '',
-      search: '',
-      userTags: [],
-      taggedSnippets: []
-    }
   }
 
   // componentDidMount() {
   //   this.getTagsFromDB();
   // };
 
-  // Render Logic
-
   render() {
 
-    const { userInfo, snippet, comments, project, tags, search, recievedTags, recievedSnippet, getTagsFromDB, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
+    const { getSnippetsMineOnly, userSnippets, userInfo, snippet, comments, project, tags, search, recievedSnippets, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
 
     return (
       <React.Fragment>
@@ -88,16 +77,18 @@ class HomeContainer extends Component {
             />
           </div>
           <SideBar
+            username={userInfo.username}
             enterSearch={enterSearch}
-            getTagsFromDB={getTagsFromDB}
-            recievedTags={recievedTags}
-            grabSnippetsFromDB={this.grabSnippetsFromDB}
+            serach={search}
+            getSnippetsByUser={getSnippetsByUser}
           />
+
+          {/* <DisplaySnippets
+            userSnippets={userSnippets}
+            getSnippetsMineOnly={getSnippetsMineOnly}
+          /> */}
         </div>
-        <DisplaySnippets
-          taggedSnippets={this.state.taggedSnippets}
-          deleteSnippet={this.deleteSnippet}
-        />
+
       </React.Fragment>
     );
   };
