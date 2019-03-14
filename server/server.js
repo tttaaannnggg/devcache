@@ -39,7 +39,7 @@ app.get('/build/bundle.js', (req, res) => {
   res.sendFile(path.resolve('./build/bundle.js'));
 });
 
-app.get('/api/user', controller.getAccountInfo, snippetController.getSnippetsByUserId, (req, res) => {
+app.get('/api/user', controller.getAccountInfo, snippetController.getSnippetsByUserId, snippetController.getAllTagsForSnippets, (req, res) => {
   const userDataWithSnippets = {
     userInfo: res.locals.userInfo,
     snippets: res.locals.snippets
@@ -48,6 +48,10 @@ app.get('/api/user', controller.getAccountInfo, snippetController.getSnippetsByU
 });
 
 app.get('/gettags', snippetController.getAllUserTags);
+
+app.get('/getsnippetsbyuser', controller.getUserIdByUsername, snippetController.getSnippetsByUserId, snippetController.getAllTagsForSnippets, (req, res)=>{
+  res.json(res.locals.snippets);
+})
 
 app.get('/getsnippetsbytag', snippetController.getSnippetIdsByTag, snippetController.getSnippetsBySnippetIds);
 
