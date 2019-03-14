@@ -12,12 +12,14 @@ import SideBar from '../components/sideBar.jsx';
 const mapStateToProps = (store) => ({
   userInfo: store.user.userInfo,
   snippet: store.snip.snippet,
+  userSnippets: store.snip.userSnippets,
   comments: store.snip.comments,
   project: store.snip.project,
   tags: store.snip.tags,
   search: store.snip.search,
   // recievedTags: store.snip.recievedTags,
   recievedSnippets: store.snip.recievedSnippets,
+  userSnippets: store.snip.userSnippets,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -33,6 +35,7 @@ const mapDispatchToProps = dispatch => ({
   deleteSnippet: () => { dispatch(actions.deleteSnippet()) },
 
   getSnippetsByUser: (username) => { dispatch(actions.getSnippetsByUser(username)) },
+  getSnippetsMineOnly: () => { dispatch(actions.getSnippetsMineOnly()) },
   getSnippetsByTag: (tag) => { dispatch(actions.getSnippetsByTag(tag)) },
 
   // getTagsFromDB: () => { dispatch(actions.getTagsFromDB()) },
@@ -55,7 +58,7 @@ class HomeContainer extends Component {
 
   render() {
 
-    const { userInfo, snippet, comments, project, tags, search, recievedSnippets, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
+    const { getSnippetsMineOnly, userSnippets, userInfo, snippet, comments, project, tags, search, recievedSnippets, userLogout, enterSnippet, enterComments, enterProject, enterTags, enterSearch, deleteSnippet, getSnippetsByUser, getSnippetsByTag, createSnippet } = this.props;
 
     return (
       <React.Fragment>
@@ -78,9 +81,15 @@ class HomeContainer extends Component {
             />
           </div>
           <SideBar
+            username={userInfo.username}
             enterSearch={enterSearch}
             serach={search}
             getSnippetsByUser={getSnippetsByUser}
+          />
+
+          <DisplaySnippets
+            userSnippets={userSnippets}
+            getSnippetsMineOnly={getSnippetsMineOnly}
           />
         </div>
 

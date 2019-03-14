@@ -8,17 +8,14 @@ const initialState = {
 	search: '',
 	// recievedTags: [],
 	recievedSnippets: [],
+  userSnippets: [],
 
 }
 
 const snipReducer = (state = initialState, action) => {
   switch (action.type) {
 
-<<<<<<< HEAD
-  	case types.GET_SNIPPETS:
-=======
   	case types.GET_SNIPPET_BY_TAG:
->>>>>>> 4fb54fe6cf3fdce4de56e23b66942594e17137d4
   	  return {
   	  	...state,
   	    recievedSnippets: action.payload,
@@ -28,6 +25,12 @@ const snipReducer = (state = initialState, action) => {
       return {
         ...state,
         recievedSnippets: action.payload,
+      }
+
+    case types.GET_SNIPPET_MINE_ONLY:
+      return {
+        ...state,
+        userSnippets: action.payload,
       }
 
   	// case types.GET_TAGS:

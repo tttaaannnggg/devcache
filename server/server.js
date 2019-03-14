@@ -13,13 +13,25 @@ const snippetController = require('./snippetController.js');
 
 // Blanket Calls
 
-app.use(cors());
+app.use( (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Headers", ['X-PINGOTHER', 'Content-Type']);
+  res.setHeader("Access-Control-Allow-Methods", 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
+  res.setHeader("Access-Control-Allow-Origin", 'http://localhost:8080'); // WILD CARD WILL NOT WORK WHEN POSTING 
+  next();
+})
+
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 
 // GET Endpoints
 
 app.get('/', (req, res) => {
+  res.sendFile(path.resolve('./index.html'));
+});
+
+app.get('/login', (req, res) => {
   res.sendFile(path.resolve('./index.html'));
 });
 

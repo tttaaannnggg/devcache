@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Registration = props => {
 
   return (
@@ -45,6 +45,9 @@ const Registration = props => {
         >
           Submit
         </button>
+
+        <Link to="/login"> <button>Log in</button> </Link>
+
       </div>
     </React.Fragment>
   );

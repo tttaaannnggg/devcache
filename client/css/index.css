@@ -166,7 +166,7 @@ h3 {
   width: 100%;
   max-width: 500px;
   padding: 80px 0 40px;
-  margin: 130px auto;
+  margin: 40px auto;
   border: 5px solid #000000;
   border-radius: 5px;
   display: flex;
@@ -389,7 +389,7 @@ h3 {
 }
 .nav {
   width: 100%;
-  margin: 0 50px 0 0;
+  margin: 0 0 50px 0;
   font-size: 62.5%;
   background: #ffffff;
 }

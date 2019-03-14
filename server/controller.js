@@ -12,6 +12,7 @@ const controller = {};
 
 controller.getAccountInfo = (req, res, next) => {
   const id = req.cookies.user_id
+  console.log(id)
   const query = {
     name: 'get-account-info',
     text: 'SELECT * FROM accounts WHERE user_id = $1',

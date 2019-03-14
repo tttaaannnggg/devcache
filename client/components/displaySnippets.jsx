@@ -1,8 +1,14 @@
 import React from 'react';
 
-const displaySnippets = props => {
-  const snippetsArray = props.taggedSnippets;
+const DisplaySnippets = function(props) {
+
+  
+  props.getSnippetsMineOnly()
+
+  const snippetsArray = props.userSnippets;
   const snippetsDisplayArray = [];
+
+  console.log('usersnippets are...', props.userSnippets)
 
   for (let i = 0; i < snippetsArray.length; i++) {
     snippetsDisplayArray.push(
@@ -42,4 +48,4 @@ const displaySnippets = props => {
   );
 };
 
-export default displaySnippets;
+export default DisplaySnippets;

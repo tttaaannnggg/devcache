@@ -12,7 +12,7 @@ const Header = props => {
         <FormControl type="text" placeholder="Search" className="mr-2" />
         <Button variant="outline-success" className="mr-5">Search</Button>
         <Dropdown.Toggle id="header-dropdown">
-          <Image src={myPic} className="corner-pic roundedCircle" />
+          <Image src={'myPic'} className="corner-pic roundedCircle" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#/snippets">My Snippets</Dropdown.Item>

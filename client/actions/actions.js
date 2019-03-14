@@ -18,9 +18,31 @@ export const signupFailed = (err) => ({
   payload: err,
 })
 
+export const inSession = () => dispatch => {
+  return Axios.get('/api/user', {
+    withCredentials: true
+  })
+    .then(userInfo => {
+      console.log('this is the user info...', userInfo)
+      dispatch(logIn(userInfo))
+    })
+    .catch(err => dispatch(loginFailed(err)))
+}
+
 export const userLogin = (username, password) => dispatch => {
-  return Axios.post('/login', {username: username, password: password})
-    .then(userInfo => dispatch(logIn(userInfo)))
+  let config = {
+    url: 'http://localhost:3000/login',
+    method:'POST',
+    withCredentials: true, 
+    data: {
+      username: getState().user.username,
+      password: getState().user.password,
+    }
+  }
+  return Axios.request(config)
+    .then(userInfo => {
+      dispatch(logIn(userInfo))
+    })
     .catch(err => dispatch(loginFailed(err)))
 }
 
@@ -32,11 +54,6 @@ export const userSignup = (fullName, email, password) => dispatch => {
     })
     .catch(err => dispatch(signupFailed(err)))
 }
-export const inSession = () => dispatch => {
-  return Axios.get('/api/user')
-    .then(userInfo => dispatch(logIn(userInfo)))
-    .catch(err => dispatch(signupFailed(err)))
-};
 
 export const enterEmail = (value) => ({
   type: types.ENTER_EMAIL,
@@ -121,37 +138,49 @@ export const getSnippetsByTag = (tag) => dispatch => {
   .catch(err => console.log(err))
 }
 
-export const getSnippetsByUser = (username) => dispatch => {
-  return fetch(`http://localhost:3000/getsnippetsbyuser/?username=${username}`, {
+export const getSnippetsByUser = (username) => (dispatch, getState) => {
+  return Axios.get(`http://localhost:3000/getsnippetsbyuser/?username=${username}`, {
       headers: { "Content-Type": "application/json" },
-      credentials: 'include',
-      method: 'GET'
+      withCredentials: true,
   })
-  .then(res => res.json())
-  .then(jsonData => 
+  .then(res => 
     dispatch({
       type: types.GET_SNIPPET_BY_USER,
-      payload: jsonData,
+      payload: res,
+    })
+  )
+  .catch(err => console.log(err))
+}
+
+export const getSnippetsMineOnly = () => (dispatch, getState) => {
+  let config = {
+    url: `http://localhost:3000/getsnippetsbyuser/?username=${getState().user.username}`,
+    method:'GET',
+    withCredentials: true, 
+  }
+  return Axios.request(config)
+  .then(res => 
+    dispatch({
+      type: types.GET_SNIPPET_MINE_ONLY,
+      payload: res,
     })
   )
   .catch(err => console.log(err))
 }
 
 export const createSnippet = () => (dispatch, getState) => {
-  console.log('lol')
-  return fetch('http://localhost:3000/createsnippet', {
-      headers: { 
-        "Content-Type": "application/json",
-      },
-      credentials: 'include',
-      method: 'post',
-      body: JSON.stringify({
-        snippet: getState().snip.snippet,
-        comments: getState().snip.comments,
-        project: getState().snip.project,
-        tags: getState().snip.tags,
-      })
-    })
+  let config = {
+    url: 'http://localhost:3000/createsnippet',
+    method:'post',
+    withCredentials: true, 
+    data: {
+      snippet: getState().snip.snippet,
+      comments: getState().snip.comments,
+      project: getState().snip.project,
+      tags: getState().snip.tags,  
+    }
+  }
+  return Axios.request(config)
   .then( res => {
     if(res.ok) getSnippetsByUser(getState().user.username)
   })
@@ -159,16 +188,14 @@ export const createSnippet = () => (dispatch, getState) => {
 }
 
 export const deleteSnippet = (id) => dispatch => {
-  return fetch('http://localhost:3000/deletesnippetbyid?id=${id}', {
-      headers: { "Content-Type": "application/json" },
-      credentials: 'include',
-      method: 'GET',
-    })
-  .then(res => res.json())
-  .then(jsonData => 
+  return Axios.get('http://localhost:3000/deletesnippetbyid?id=${id}', {
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true
+  })
+  .then(res => 
     dispatch({
       type: types.DELETE_SNIPPET,
-      payload: jsonData,
+      payload: res,
     })
   )
   .catch(err => console.log(err))

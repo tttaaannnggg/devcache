@@ -4,7 +4,7 @@ import { debug } from 'util';
 const initialState = {
   loginError: '',
   signupError: '',
-  isLoggedIn: true,
+  isLoggedIn: false,
   email: '',
   fullName: '',
   password: '',
@@ -16,19 +16,23 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case types.LOGIN:
+
+      console.log('we are in login!', action.payload)
+      console.log('the username is...', action.payload.userInfo.username)
+
       return {
         ...state,
-        userInfo: action.payload.user,
-        currentMatch: action.payload.currentMatch,
-        pastMatches: action.payload.pastMatches,
+        userInfo: action.payload.userInfo,
         isLoggedIn: true,
-        email: '',
+        username: action.payload.userInfo.username,
         password: '',
       }
 
     case types.LOGIN_FAILED:
       return {
         ...state,
+        // username: '',
+        password: '',
         loginError: action.payload,
       }
     

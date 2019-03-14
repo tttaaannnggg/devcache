@@ -1,6 +1,6 @@
 import React from 'react';
 
-const sideBar = props => {
+const sideBar = function(props) {
   
   const tagSet = new Set(props.userTags);
   const tagArray = Array.from(tagSet);
@@ -10,6 +10,8 @@ const sideBar = props => {
   // get all snippets by current user
   // then, filter all current user's snippets by props.search
   //
+
+  
 
   for (let i = 0; i < tagArray.length; i++) {
     displayArray.push(

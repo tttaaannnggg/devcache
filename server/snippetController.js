@@ -16,6 +16,9 @@ snippetController.createSnippet = (req, res, next) => {
     values: [snippet, comments, project, date, user_id]
   };
 
+  console.log('the req body is...',req.body)
+  console.log('the user_id is...',req.cookies)
+
   pool.query(snippetQuery)
     .then(result => {
       res.locals.snippet_id = result.rows[0].id
