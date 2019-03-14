@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import Login from './components/Login.jsx';
 import Registration from './components/Registration.jsx';
 import HomeContainer from './containers/HomeContainer.jsx';
-// import Header from '../components/Header.jsx';
+import Header from './components/Header.jsx';
 
 const mapStateToProps = (store) => ({
   isLoggedIn: store.user.isLoggedIn,
@@ -37,6 +37,7 @@ class App extends Component {
     const { userLogin, userSignup, userLogout, enterEmail, email, enterPassword, password, enterFullName, fullName, userInfo, username, enterUsername, isLoggedIn } = this.props;
     return(
     <div>
+      {(isLoggedIn) ? <Header userInfo={userInfo} userLogout={userLogout} /> : '' }
       <Router>
         <Switch>
         <Route path="/" render={ () => !isLoggedIn ? <Redirect to="/login" />
