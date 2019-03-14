@@ -86,7 +86,7 @@ class HomeContainer extends Component {
           <SideBar
             username={userInfo.username}
             enterSearch={enterSearch}
-            serach={search}
+            search={search}
             userSnippets={userSnippets}
             getSnippetsByUser={getSnippetsByUser}
             trieFindChildren={trieFindChildren}
