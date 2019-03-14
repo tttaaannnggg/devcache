@@ -23,7 +23,6 @@ export const inSession = () => dispatch => {
     withCredentials: true
   })
     .then(userInfo => {
-      console.log('this is the user info...', userInfo)
       dispatch(logIn(userInfo))
     })
     .catch(err => dispatch(loginFailed(err)))

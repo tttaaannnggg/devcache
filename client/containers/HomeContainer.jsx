@@ -41,8 +41,6 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-// Component Body
-
 class HomeContainer extends Component {
 
   constructor(props) {
@@ -53,8 +51,6 @@ class HomeContainer extends Component {
   componentDidMount() {
     this.props.getSnippetsMineOnly()
   };
-
-  // Render Logic
 
   render() {
 
@@ -85,8 +81,6 @@ class HomeContainer extends Component {
             enterSearch={enterSearch}
             serach={search}
             getSnippetsByUser={getSnippetsByUser}
-            userSnippets={userSnippets}
-            getSnippetsMineOnly={getSnippetsMineOnly}
           />
         </div>
 

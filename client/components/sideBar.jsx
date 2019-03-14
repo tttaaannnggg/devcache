@@ -1,5 +1,8 @@
 import React from 'react';
+
 import DisplaySnippets from '../components/displaySnippets.jsx';
+import { Image, Navbar, Form, Dropdown, FormControl, Button, Nav, InputGroup } from 'react-bootstrap';
+
 
 const sideBar = function(props) {
   
@@ -29,15 +32,14 @@ const sideBar = function(props) {
   return (
     <div className='side-bar'>
       <div className='search-bar'>
-        <input 
+        <FormControl
+          aria-describedby="basic-addon1"
           id='search-field'
           type='text'
           name='search-bar'
-          placeholder='search by tag'
-          value={ props.search }
-          onChange={ props.enterSearch }
-        />
-        <i className='fas fa-search' 
+          placeholder='Search my snippets'
+          value={props.search}
+          onChange={props.enterSearch}
         />
       </div>
       <DisplaySnippets

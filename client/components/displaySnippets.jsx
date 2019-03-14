@@ -1,6 +1,7 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
-const DisplaySnippets = function(props) {
+const DisplaySnippets = props => {
 
   const snippetsArray = props.userSnippets.data;
   const snippetsDisplayArray = [];
@@ -37,12 +38,11 @@ const DisplaySnippets = function(props) {
       );
     };
   }
-  
   return (
-    <div className='tagged-snippets-box'>
-      { snippetsDisplayArray }
+    <div>
+      {snippetsArray}
     </div>
   );
-};
+}
 
 export default DisplaySnippets;

@@ -1,52 +1,59 @@
 import React from 'react';
+import { InputGroup, FormControl, Button, Nav } from 'react-bootstrap';
 
 const addSnip = props => {
-    
+
   return (
     <React.Fragment>
-      <textarea 
-        placeholder='...add Snippet'
-        onChange={ props.enterSnippet }
+      <textarea
+        placeholder='Add snippet...'
+        onChange={props.enterSnippet}
       />
-      <div className="details">
-        <span className="detailsLeft">
-          <div className="details-box">
-            <h4>description:</h4>
-            <input 
-              id='comment'
-              type='text'
-              name='comment'
-              value={props.comments}
-              onChange={ props.enterComments }
-            />
-          </div>
-          <div className='details-box'>
-              <h4>project:</h4>
-              <input 
-                id='project-tag'
-                type='text'
-                name='projectTag'
-                value={props.project}
-                onChange={ props.enterProject }
-              />
-          </div>
-          <div className='details-box'>
-              <h4>tags:</h4>
-              <input 
-                id='project-tag'
-                type='text'
-                name='projectTag'
-                value={ props.tags }
-                onChange={ props.enterTags }
-              />
-          </div>
-        </span>
 
-        <span className="detailsRight">
-          <button onClick= { props.createSnippet }>Submit Snippet</button> 
-        </span>
+      <InputGroup className="mb-1">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1 inputGroup-sizing-default">Description</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          id='comment'
+          type='text'
+          name='comment'
+          value={props.comments}
+          onChange={props.enterComments}
+          aria-describedby="basic-addon1"
+        />
+      </InputGroup>
 
-      </div>
+      <InputGroup className="mb-1">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1 inputGroup-sizing-default">Project</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          aria-describedby="basic-addon1"
+          id='project-tag'
+          type='text'
+          name='projectTag'
+          value={props.project}
+          onChange={props.enterProject}
+        />
+      </InputGroup>
+
+      <InputGroup className="mb-1">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1 inputGroup-sizing-default">Tags</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          id='project-tag'
+          type='text'
+          name='projectTag'
+          value={props.tags}
+          onChange={props.enterTags}
+          aria-describedby="basic-addon1"
+        />
+        <InputGroup.Append>
+          <Button variant="success" onClick={props.createSnippet}>Submit Snippet</Button>
+        </InputGroup.Append>
+      </InputGroup>
     </React.Fragment>
   );
 };

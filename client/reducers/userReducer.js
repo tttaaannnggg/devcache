@@ -17,9 +17,6 @@ const userReducer = (state = initialState, action) => {
 
     case types.LOGIN:
 
-      console.log('we are in login!', action.payload)
-      console.log('the username is...', action.payload.userInfo.username)
-
       return {
         ...state,
         userInfo: action.payload.userInfo,
