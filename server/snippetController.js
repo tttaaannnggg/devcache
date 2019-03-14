@@ -105,7 +105,8 @@ snippetController.getSnippetIdsByTag = (req, res, next) => {
 };
 
 snippetController.getSnippetsByUserId = (req, res, next) => {
-  const uid = res.locals.userInfo.user_id;
+  // const uid = res.locals.userInfo.user_id;
+  const uid = req.cookies.user_id;
   const query = {
     name: 'get-snippets-by-user-id',
     text: 'SELECT * from snippets where user_id = $1',

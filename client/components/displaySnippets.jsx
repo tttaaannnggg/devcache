@@ -2,13 +2,13 @@ import React from 'react';
 
 const DisplaySnippets = function(props) {
 
-  
+  componentWillMount() {
+    
+  }
   props.getSnippetsMineOnly()
 
-  const snippetsArray = props.userSnippets;
+  const snippetsArray = props.userSnippets.data;
   const snippetsDisplayArray = [];
-
-  console.log('usersnippets are...', props.userSnippets)
 
   for (let i = 0; i < snippetsArray.length; i++) {
     snippetsDisplayArray.push(

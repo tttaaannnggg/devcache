@@ -29,7 +29,7 @@ export const inSession = () => dispatch => {
     .catch(err => dispatch(loginFailed(err)))
 }
 
-export const userLogin = (username, password) => dispatch => {
+export const userLogin = (username, password) => (dispatch, getState) => {
   let config = {
     url: 'http://localhost:3000/login',
     method:'POST',
@@ -152,19 +152,19 @@ export const getSnippetsByUser = (username) => (dispatch, getState) => {
   .catch(err => console.log(err))
 }
 
-export const getSnippetsMineOnly = () => (dispatch, getState) => {
+export const getSnippetsMineOnly = () => (dispatch) => {
   let config = {
-    url: `http://localhost:3000/getsnippetsbyuser/?username=${getState().user.username}`,
+    url: `http://localhost:3000/getsnippetsbyuser`,
     method:'GET',
     withCredentials: true, 
   }
   return Axios.request(config)
-  .then(res => 
-    dispatch({
+  .then(res => {
+    return dispatch({
       type: types.GET_SNIPPET_MINE_ONLY,
       payload: res,
     })
-  )
+  })
   .catch(err => console.log(err))
 }
 
