@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Login = props => {
   
   return (
@@ -27,7 +27,7 @@ const Login = props => {
           onClick={() => props.userLogin(props.username, props.password) }
         >Login</button>
         {/* This redirects to register */}
-        {/* <a onClick={ props.registerUser }>Register</a>  */}
+        <Link to="/signup"> <button>Register</button> </Link>
       </div>
     </div>
   );

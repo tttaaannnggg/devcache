@@ -1,42 +1,44 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-	snippet: '',
-	comments: '',
-	project: '',
-	tags: '',
-	search: '',
-	recievedTags: [],
-	recievedSnippet: '',
+  snippet: '',
+  comments: '',
+  project: '',
+  tags: '',
+  search: '',
+  recievedSnippets: [],
+  userSnippets: [],
 
 }
 
 const snipReducer = (state = initialState, action) => {
   switch (action.type) {
 
-<<<<<<< HEAD
-  	case types.GET_SNIPPETS:
-=======
-  	case types.GET_SNIPPET_BY_TAG:
->>>>>>> 4fb54fe6cf3fdce4de56e23b66942594e17137d4
-  	  return {
-  	  	...state,
-  	    recievedSnippet: action.payload,
-  	  }
+    case types.GET_SNIPPET_BY_TAG:
+      return {
+        ...state,
+        recievedSnippets: action.payload,
+      }
 
     case types.GET_SNIPPET_BY_USER:
       return {
         ...state,
-        recievedSnippet: action.payload,
+        recievedSnippets: action.payload,
       }
 
-  	case types.GET_TAGS:
-  	  return {
-  	  	...state,
-  	    recievedTags: action.payload,
-  	  }
+    case types.GET_SNIPPET_MINE_ONLY:
+      return {
+        ...state,
+        userSnippets: action.payload.data,
+      }
 
-  	case types.ENTER_SNIPPET:
+    // case types.GET_TAGS:
+    //   return {
+    //   	...state,
+    //     recievedTags: action.payload,
+    //   }
+
+    case types.ENTER_SNIPPET:
       return {
         ...state,
         snippet: action.payload,

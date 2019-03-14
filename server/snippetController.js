@@ -62,9 +62,9 @@ snippetController.getAllUserTags = (req, res) => {
     });
 };
 
-snippetController.getAllTagsForSnippets = (req, res, next)=>{
+snippetController.getAllTagsForSnippets = (req, res, next) => {
   const promises = [];
-  res.locals.snippets.forEach((snip)=>{
+  res.locals.snippets.forEach((snip) => {
     const query = {
       name: 'get-tags-for-snip',
       text: 'SELECT tag FROM tags WHERE snippet_id = $1',
@@ -73,9 +73,8 @@ snippetController.getAllTagsForSnippets = (req, res, next)=>{
     promises.push(pool.query(query));
   })
   Promise.all(promises)
-    .then( vals =>{
-      vals.forEach((tagArr, i)=>{
-        console.log('tagArr', tagArr.rows);
+    .then(vals => {
+      vals.forEach((tagArr, i) => {
         res.locals.snippets[i].tags = tagArr.rows;
       })
       next()
@@ -102,7 +101,8 @@ snippetController.getSnippetIdsByTag = (req, res, next) => {
 };
 
 snippetController.getSnippetsByUserId = (req, res, next) => {
-  const uid = res.locals.userInfo.user_id;
+  // const uid = res.locals.userInfo.user_id;
+  const uid = req.cookies.user_id;
   const query = {
     name: 'get-snippets-by-user-id',
     text: 'SELECT * from snippets where user_id = $1',
@@ -159,7 +159,7 @@ snippetController.deleteSnippet = (req, res) => {
 
   pool.query(deleteQuery)
     .then(data => {
-      res.status(200).send('Snippet deleted.')
+      res.status(200).send('ok')
     });
 };
 
