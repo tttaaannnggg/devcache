@@ -227,8 +227,7 @@ h3 {
 .main .detailsRight {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 20%;
+  width: 30%;
 }
 .main textarea {
   height: 250px;
@@ -239,61 +238,25 @@ h3 {
 }
 
 .side-bar {
-  overflow: scroll;
   border: 0.5px solid black;
   margin-left: 10px;
   border-radius: 5px;
+  padding: 5px;
+  width: 30%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.side-bar p {
-  line-height: 1.5;
-  cursor: pointer;
-}
-.side-bar .search-bar {
-  display: flex;
-}
-.side-bar .search-bar #search-field {
-  width: 100%;
-  margin: 5px;
-}
-.side-bar .search-bar i {
-  width: 30px;
-  height: 30px;
-  font-size: 2rem;
-  padding: 5px;
-  margin: 0 auto;
-}
-.tagged-snippets-box .tagged-snippet .tagged-content-box {
-  display: flex;
+.search-bar .tagged-snippet {
   position: relative;
-}
-.tagged-snippets-box .tagged-snippet .tagged-content-box .tagged-snippet-content {
-  width: 100%;
   text-align: left;
-}
-.tagged-snippets-box .tagged-snippet .tagged-content-box i {
-  width: 30px;
-  height: 30px;
   position: absolute;
-  font-size: 2rem;
-  text-align: center;
-  margin: 0 auto;
-}
-.tagged-snippets-box .tagged-snippet .tagged-details-box {
-  display: flex;
-}
-.tagged-snippets-box .tagged-snippet .tagged-details-box .tagged-snippet-date {
-  width: 20%;
-}
-.tagged-snippets-box .tagged-snippet .tagged-details-box .tagged-snippet-project {
-  width: 20%;
-}
-.tagged-snippets-box .tagged-snippet .tagged-details-box .tagged-snippet-comments {
-  text-align: right;
-  width: 60%;
-}
+  margin: 10px;
+  font-size: 1rem;
+} 
 
 .nav {
-  background-color: #ffffff;
+  background-color: lightblue;
   height: 100px;
 }

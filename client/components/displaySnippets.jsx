@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 
 const DisplaySnippets = props => {
   console.log('whats userSnippets?, ', props.userSnippets)
@@ -9,17 +9,13 @@ const DisplaySnippets = props => {
   if(snippetsArray) {
     for (let i = 0; i < snippetsArray.length; i++) {
       snippetsDisplayArray.push(
-        <div 
-          className='tagged-snippet' 
+        <div
           key={'snippet' + i}
           id={ snippetsArray[i].id }
         >
-          <div className='tagged-content-box'>
-            <p className='tagged-snippet-content'>
+            <Button variant="outline-dark" className="tagged-snippet text-left" size='sm'>
               { snippetsArray[i].snippet }
-            </p>
-          </div>
-
+            </Button>
         </div>
       );
     };
