@@ -6,6 +6,7 @@ import App from './App.jsx';
 import store from './store';
 
 import styles from './css/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 render(
   <Provider store={store}>

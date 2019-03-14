@@ -36,7 +36,7 @@ export const inSession = () => dispatch => {
   return Axios.get('/api/user')
     .then(userInfo => dispatch(logIn(userInfo)))
     .catch(err => dispatch(signupFailed(err)))
-}
+};
 
 export const enterEmail = (value) => ({
   type: types.ENTER_EMAIL,
