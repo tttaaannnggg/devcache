@@ -37,6 +37,10 @@ app.get('/api/user', controller.getAccountInfo, snippetController.getSnippetsByU
 
 app.get('/gettags', snippetController.getAllUserTags);
 
+app.get('/getsnippetsbyuser', controller.getUserIdByUsername, snippetController.getSnippetsByUserId, (req, res)=>{
+  res.json(res.locals.snippets);
+})
+
 app.get('/getsnippetsbytag', snippetController.getSnippetIdsByTag, snippetController.getSnippetsBySnippetIds);
 
 app.get('/deletesnippetbyid', snippetController.deleteSnippet);
