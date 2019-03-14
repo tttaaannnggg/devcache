@@ -2,8 +2,8 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 const DisplaySnippets = props => {
-
-  const snippetsArray = props.userSnippets.data;
+  console.log('whats userSnippets?, ', props.userSnippets)
+  const snippetsArray = props.userSnippets;
   const snippetsDisplayArray = [];
 
   if(snippetsArray) {
@@ -18,29 +18,15 @@ const DisplaySnippets = props => {
             <p className='tagged-snippet-content'>
               { snippetsArray[i].snippet }
             </p>
-            <i 
-              className="fas fa-trash" 
-              onClick={ () => props.deleteSnippet(snippetsArray[i].id, i) }
-            />
           </div>
-          <div className='tagged-details-box'>
-            <p className='tagged-snippet-date'>
-              { snippetsArray[i].date }
-            </p>
-            <p className='tagged-snippet-project'>
-              { snippetsArray[i].project }
-            </p>
-            <p className='tagged-snippet-comments'>
-              { snippetsArray[i].comments }
-            </p>
-          </div>
+
         </div>
       );
     };
   }
   return (
     <div>
-      {snippetsArray}
+      {snippetsDisplayArray}
     </div>
   );
 }

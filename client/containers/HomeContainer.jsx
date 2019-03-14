@@ -48,7 +48,7 @@ class HomeContainer extends Component {
 
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getSnippetsMineOnly()
   };
 
@@ -80,6 +80,7 @@ class HomeContainer extends Component {
             username={userInfo.username}
             enterSearch={enterSearch}
             serach={search}
+            userSnippets={userSnippets}
             getSnippetsByUser={getSnippetsByUser}
           />
         </div>
