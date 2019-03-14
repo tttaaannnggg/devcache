@@ -62,6 +62,26 @@ snippetController.getAllUserTags = (req, res) => {
     });
 };
 
+snippetController.getAllTagsForSnippets = (req, res, next)=>{
+  const promises = [];
+  res.locals.snippets.forEach((snip)=>{
+    const query = {
+      name: 'get-tags-for-snip',
+      text: 'SELECT tag FROM tags WHERE snippet_id = $1',
+      values: [snip.id]
+    }
+    promises.push(pool.query(query));
+  })
+  Promise.all(promises)
+    .then( vals =>{
+      vals.forEach((tagArr, i)=>{
+        console.log('tagArr', tagArr.rows);
+        res.locals.snippets[i].tags = tagArr.rows;
+      })
+      next()
+    })
+}
+
 snippetController.getSnippetIdsByTag = (req, res, next) => {
   const tag = req.query.tag;
   const IdQuery = {
@@ -94,7 +114,6 @@ snippetController.getSnippetsByUserId = (req, res, next) => {
       res.locals.snippets = result.rows;
       next();
     })
-
 }
 
 snippetController.getSnippetsBySnippetIds = (req, res) => {
