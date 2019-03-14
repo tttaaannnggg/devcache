@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 // Import Children
 
 import AddSnip from '../components/addSnip.jsx';
-import DisplaySnippets from '../components/displaySnippets.jsx';
 import SideBar from '../components/sideBar.jsx';
 
 const mapStateToProps = (store) => ({
@@ -48,11 +47,12 @@ class HomeContainer extends Component {
 
   constructor(props) {
     super(props);
+
   }
 
-  // componentDidMount() {
-  //   this.getTagsFromDB();
-  // };
+  componentDidMount() {
+    this.props.getSnippetsMineOnly()
+  };
 
   // Render Logic
 
@@ -85,9 +85,6 @@ class HomeContainer extends Component {
             enterSearch={enterSearch}
             serach={search}
             getSnippetsByUser={getSnippetsByUser}
-          />
-
-          <DisplaySnippets
             userSnippets={userSnippets}
             getSnippetsMineOnly={getSnippetsMineOnly}
           />

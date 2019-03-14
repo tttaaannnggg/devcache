@@ -32,7 +32,7 @@ const snipReducer = (state = initialState, action) => {
         ...state,
         userSnippets: action.payload,
       }
-
+     
   	// case types.GET_TAGS:
   	//   return {
   	//   	...state,

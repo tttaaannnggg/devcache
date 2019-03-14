@@ -1,4 +1,5 @@
 import React from 'react';
+import DisplaySnippets from '../components/displaySnippets.jsx';
 
 const sideBar = function(props) {
   
@@ -39,7 +40,10 @@ const sideBar = function(props) {
         <i className='fas fa-search' 
         />
       </div>
-      { displayArray }
+      <DisplaySnippets
+        userSnippets={props.userSnippets}
+        getSnippetsMineOnly={props.getSnippetsMineOnly}
+      />
     </div>
   );
 };
