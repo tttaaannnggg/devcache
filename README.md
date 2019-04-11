@@ -4,6 +4,8 @@
 
 A personalized cache of code snippets for developers.
 
+Currently needs to be hooked up to a mongoDB instance in order to work, so you'll have to provide your own creds
+
 <br/>
 
 ### // ============================= | MVP
@@ -23,6 +25,6 @@ A personalized cache of code snippets for developers.
 
 <br/>
 
-### Stitched together by Team Stark, long live the North!
+### Built by team Stark, fixed by House Targaryen
 
-> Anthony Valentin, Parker Allen & Just Noah.
+> Shane, Nisha, Ed, and Tang
